@@ -1,23 +1,28 @@
   class Canvas {
-      constructor() {
-          this.canvas = document.querySelector('canvas');
+      constructor(id) {
+          this.canvas = document.getElementById(id);
           this.ctx = this.canvas.getContext('2d');
           this.stageConfig = {
-              width: 100,
-              height: 100
+              width: 20,
+              height: 20
           };
+
+
           this.canvas.width = this.stageConfig.width;
           this.canvas.height = this.stageConfig.height;
+
+          this.image = new Array(this.canvas.width)
+
       };
 
-      buildCanvas() {
+      addImageToCanvas(imageData) {
           for (let w = 0; w < this.canvas.width; w++) {
-              this.addPixelToCanvas(randomColour(), w, 0)
               for (let h = 0; h < this.canvas.height; h++) {
-                  this.addPixelToCanvas(randomColour(), w, h);
+                  this.addPixelToCanvas(imageData[w][h], w, h);
               };
           };
-      };
+      }
+
 
       addPixelToCanvas(colour, x, y) {
           this.ctx.fillStyle = colour;
@@ -25,7 +30,8 @@
       };
 
       getPixelColour(x, y) {
-          let pd = this.ctx.getImageData(x, y, 1, 1).data; // pixel data
-          return (rgbToHex(pd[0], pd[1], pd[2])); // rgb
+          return this.image[x][y];
       }
+
+
   }

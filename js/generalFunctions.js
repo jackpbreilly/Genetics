@@ -3,11 +3,16 @@ function randomColour() {
     return '#' + ('000000' + color).slice(-6);
 };
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-};
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-};
+function blackorwhite() {
+    let randNo = Math.floor(Math.random() * 10);
+    if (randNo > 5) {
+        return "#000000";
+    } else {
+        return "#ffffff";
+
+    }
+}
