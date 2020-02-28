@@ -8,19 +8,24 @@
           };
           this.canvas.width = this.stageConfig.width;
           this.canvas.height = this.stageConfig.height;
-          this.ctx.fillStyle = "blue";
-          this.ctx.fillRect(0, 0, this.stageConfig.width, this.stageConfig.height);
+      };
 
-          let i;
-          let j;
-          for (i = 0; i < 100; i++) {
-              this.ctx.fillStyle = getRandomColor();
-              this.ctx.fillRect(i, 5, 1, 1);
-              for (j = 0; j < 100; j++) {
-                  this.ctx.fillStyle = getRandomColor();
-                  this.ctx.fillRect(i, j, 1, 1);
-              }
-          }
+      buildCanvas() {
+          for (let w = 0; w < this.canvas.width; w++) {
+              this.addPixelToCanvas(randomColour(), w, 0)
+              for (let h = 0; h < this.canvas.height; h++) {
+                  this.addPixelToCanvas(randomColour(), w, h);
+              };
+          };
+      };
+
+      addPixelToCanvas(colour, x, y) {
+          this.ctx.fillStyle = colour;
+          this.ctx.fillRect(x, y, 1, 1);
+      };
+
+      getPixelColour(x, y) {
+          let pd = this.ctx.getImageData(x, y, 1, 1).data; // pixel data
+          return (rgbToHex(pd[0], pd[1], pd[2])); // rgb
       }
-
   }
