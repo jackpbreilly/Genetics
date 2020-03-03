@@ -12,7 +12,7 @@ class Population {
         this.best = [];
 
         this.population = new Array();
-        for (let i = 0; i < WIDTH; i++) {
+        for (let i = 0; i < num; i++) {
             this.population[i] = new DNA();
         }
         this.matingPool = [];

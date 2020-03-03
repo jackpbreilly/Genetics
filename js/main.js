@@ -12,8 +12,8 @@ let population;
 
 function setup() {
     target = generateImage();
-    popmax = 200000000;
-    mutationRate = 0.03;
+    popmax = 6000;
+    mutationRate = 0.05;
 
     population = new Population(target, mutationRate, popmax);
 
