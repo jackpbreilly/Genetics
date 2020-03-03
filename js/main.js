@@ -12,8 +12,8 @@ let population;
 
 function setup() {
     target = generateImage();
-    popmax = 200000;
-    mutationRate = 0.01;
+    popmax = 200000000;
+    mutationRate = 0.03;
 
     population = new Population(target, mutationRate, popmax);
 
@@ -22,7 +22,7 @@ function setup() {
     TARGET_CANVAS.addImageToCanvas();
 }
 
-async function draw() {
+async function run() {
 
     while (!population.isFinished()) {
         population.naturalSelection();
@@ -37,4 +37,4 @@ async function draw() {
 }
 
 setup();
-draw();
+run();
