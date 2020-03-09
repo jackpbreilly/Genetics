@@ -3,7 +3,8 @@
           this.canvas = document.getElementById(id);
           this.ctx = this.canvas.getContext('2d');
           this.display = null; // What is currently on canvas
-
+          this.canvas.height = HEIGHT;
+          this.canvas.width = WIDTH;
       };
 
       addImageToCanvas() {

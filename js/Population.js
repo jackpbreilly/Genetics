@@ -37,13 +37,15 @@ class Population {
         }
 
         for (let i = 0; i < this.population.length; i++) {
-
-            let fitness = map(this.population[i].fitness, 0, maxFitness, 0, 1);
-            let n = Math.floor(fitness * 100); // Arbitrary multiplier, we can also use monte carlo method
-            for (let j = 0; j < n; j++) { // and pick two random numbers
-                this.matingPool.push(this.population[i]);
+            if (this.population[i].fitness > (maxFitness - 0.05)) {
+                let fitness = map(this.population[i].fitness, 0, maxFitness, 0, 1);
+                let n = Math.floor(fitness * 100); // Arbitrary multiplier, we can also use monte carlo method
+                for (let j = 0; j < n; j++) { // and pick two random numbers
+                    this.matingPool.push(this.population[i]);
+                }
             }
         }
+
     }
 
     // Create a new generation
@@ -57,10 +59,33 @@ class Population {
             let child = partnerA.crossover(partnerB);
 
             child.mutate(this.mutationRate);
+            ITERATING_CANVAS.setDisplay(child.genes);
+            ITERATING_CANVAS.addImageToCanvas();
             this.population[i] = child;
         }
-        console.log("Generation:" + this.generations);
         this.generations++;
+    }
+    lowestFitness() {
+        let worldrecord = 100;
+        let index = 0;
+        for (let i = 0; i < this.population.length; i++) {
+            if (this.population[i].fitness < worldrecord) {
+                index = i;
+                worldrecord = this.population[i].fitness;
+            }
+        }
+
+        this.best = this.population[index].genes;
+        if (worldrecord === this.perfectScore) {
+            this.finished = true;
+        }
+
+        if (worldrecord > BEST_PERCENTAGE) {
+            BEST_PERCENTAGE = worldrecord;
+            console.log(worldrecord);
+            BEST_CANVAS.setDisplay(population.best);
+            BEST_CANVAS.addImageToCanvas();
+        }
     }
 
 
@@ -86,7 +111,6 @@ class Population {
 
         if (worldrecord > BEST_PERCENTAGE) {
             BEST_PERCENTAGE = worldrecord;
-            console.log(worldrecord);
             BEST_CANVAS.setDisplay(population.best);
             BEST_CANVAS.addImageToCanvas();
         }
@@ -108,6 +132,5 @@ class Population {
         }
         return total / (this.population.length);
     }
-
 
 }
